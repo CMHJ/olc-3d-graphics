@@ -127,30 +127,25 @@ impl olc::Application for OLCEngine3D {
         // Draw triangles
         for tri in self.mesh_cube.tris.iter() {
             let mut tri_proj = Tri::new();
-            // let mut tri_rot_z = Tri::new();
-            // let mut tri_rot_zx = Tri::new();
+            let mut tri_rot_z = Tri::new();
+            let mut tri_rot_zx = Tri::new();
 
-            // Mat4x4::multiply_matrix_vector(&tri.p[0], &mut tri_rot_z.p[0], &mat_rot_z);
-            // Mat4x4::multiply_matrix_vector(&tri.p[1], &mut tri_rot_z.p[1], &mat_rot_z);
-            // Mat4x4::multiply_matrix_vector(&tri.p[2], &mut tri_rot_z.p[2], &mat_rot_z);
+            Mat4x4::multiply_matrix_vector(&tri.p[0], &mut tri_rot_z.p[0], &mat_rot_z);
+            Mat4x4::multiply_matrix_vector(&tri.p[1], &mut tri_rot_z.p[1], &mat_rot_z);
+            Mat4x4::multiply_matrix_vector(&tri.p[2], &mut tri_rot_z.p[2], &mat_rot_z);
 
-            // Mat4x4::multiply_matrix_vector(&tri_rot_z.p[0], &mut tri_rot_zx.p[0], &mat_rot_x);
-            // Mat4x4::multiply_matrix_vector(&tri_rot_z.p[1], &mut tri_rot_zx.p[1], &mat_rot_x);
-            // Mat4x4::multiply_matrix_vector(&tri_rot_z.p[2], &mut tri_rot_zx.p[2], &mat_rot_x);
+            Mat4x4::multiply_matrix_vector(&tri_rot_z.p[0], &mut tri_rot_zx.p[0], &mat_rot_x);
+            Mat4x4::multiply_matrix_vector(&tri_rot_z.p[1], &mut tri_rot_zx.p[1], &mat_rot_x);
+            Mat4x4::multiply_matrix_vector(&tri_rot_z.p[2], &mut tri_rot_zx.p[2], &mat_rot_x);
 
-            // let mut tri_trans = tri_rot_zx.clone();
-            // tri_trans.p[0].z = tri.p[0].z + 3.0;
-            // tri_trans.p[1].z = tri.p[1].z + 3.0;
-            // tri_trans.p[2].z = tri.p[2].z + 3.0;
+            let mut tri_trans = tri_rot_zx.clone();
+            tri_trans.p[0].z = tri.p[0].z + 3.0;
+            tri_trans.p[1].z = tri.p[1].z + 3.0;
+            tri_trans.p[2].z = tri.p[2].z + 3.0;
 
-            // Mat4x4::multiply_matrix_vector(&tri_trans.p[0], &mut tri_proj.p[0], &self.mat_proj);
-            // Mat4x4::multiply_matrix_vector(&tri_trans.p[1], &mut tri_proj.p[1], &self.mat_proj);
-            // Mat4x4::multiply_matrix_vector(&tri_trans.p[2], &mut tri_proj.p[2], &self.mat_proj);
-
-            // TESTING
-            Mat4x4::multiply_matrix_vector(&tri.p[0], &mut tri_proj.p[0], &self.mat_proj);
-            Mat4x4::multiply_matrix_vector(&tri.p[1], &mut tri_proj.p[1], &self.mat_proj);
-            Mat4x4::multiply_matrix_vector(&tri.p[2], &mut tri_proj.p[2], &self.mat_proj);
+            Mat4x4::multiply_matrix_vector(&tri_trans.p[0], &mut tri_proj.p[0], &self.mat_proj);
+            Mat4x4::multiply_matrix_vector(&tri_trans.p[1], &mut tri_proj.p[1], &self.mat_proj);
+            Mat4x4::multiply_matrix_vector(&tri_trans.p[2], &mut tri_proj.p[2], &self.mat_proj);
 
             // Scale into view
             tri_proj.p[0].x += 1.0;
@@ -171,8 +166,8 @@ impl olc::Application for OLCEngine3D {
                 tri_proj.p[0].x as i32,
                 tri_proj.p[0].y as i32,
                 tri_proj.p[1].x as i32,
-                tri_proj.p[1].x as i32,
-                tri_proj.p[2].y as i32,
+                tri_proj.p[1].y as i32,
+                tri_proj.p[2].x as i32,
                 tri_proj.p[2].y as i32,
                 olc::WHITE,
             );
