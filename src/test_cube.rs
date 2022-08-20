@@ -1,7 +1,7 @@
 use crate::types::{Mesh, Tri, V3d};
 
-pub fn generate_test_cube_mesh() -> Mesh<f32> {
-    Mesh::<f32> {
+pub fn generate_test_cube_mesh() -> Mesh {
+    Mesh {
         tris: vec![
             // SOUTH
             Tri {

@@ -7,4 +7,3 @@ edition = "2021"
 
 [dependencies]
 olc_pixel_game_engine = "0.5.0"
-
