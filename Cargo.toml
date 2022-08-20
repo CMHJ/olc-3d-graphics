@@ -1,5 +1,5 @@
 [package]
-name = "olc-3d-graphics"
+name = "olc-3d-graphics-rs"
 version = "0.1.0"
 edition = "2021"
 
