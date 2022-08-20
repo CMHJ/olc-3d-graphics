@@ -1,35 +1,288 @@
 use olc_pixel_game_engine as olc;
+use std::vec::Vec;
 
-// Very simple example application that prints "Hello, World!" on screen.
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct V3d<T> {
+    pub x: T,
+    pub y: T,
+    pub z: T,
+}
 
-struct ExampleProgram {}
+pub struct Tri<T> {
+    p: [V3d<T>; 3],
+}
 
-impl olc::Application for ExampleProgram {
-  fn on_user_create(&mut self) -> Result<(), olc::Error> {
-    // Mirrors `olcPixelGameEngine::onUserCreate`. Your code goes here.
-    Ok(())
-  }
+struct Mesh<T> {
+    tris: Vec<Tri<T>>,
+}
 
-  fn on_user_update(&mut self, _elapsed_time: f32) -> Result<(), olc::Error> {
-    // Mirrors `olcPixelGameEngine::onUserUpdate`. Your code goes here.
+struct OLCEngine3D {
+    mesh_cube: Mesh<f32>,
+}
 
-    // Clears screen and sets black colour.
-    olc::clear(olc::BLACK);
-    // Prints the string starting at the position (40, 40) and using white colour.
-    olc::draw_string(40, 40, "Hello, World!", olc::WHITE)?;
-    Ok(())
-  }
+impl olc::Application for OLCEngine3D {
+    fn on_user_create(&mut self) -> Result<(), olc::Error> {
+        let mut mesh_cube = Mesh::<f32> { tris: Vec::new() };
+        mesh_cube.tris = vec![
+            // SOUTH
+            Tri {
+                p: [
+                    V3d {
+                        x: 0.0,
+                        y: 0.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 1.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 1.0,
+                        z: 0.0,
+                    },
+                ],
+            },
+            Tri {
+                p: [
+                    V3d {
+                        x: 0.0,
+                        y: 0.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 1.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 0.0,
+                        z: 0.0,
+                    },
+                ],
+            },
+            // EAST
+            Tri {
+                p: [
+                    V3d {
+                        x: 1.0,
+                        y: 0.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 1.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 1.0,
+                        z: 1.0,
+                    },
+                ],
+            },
+            Tri {
+                p: [
+                    V3d {
+                        x: 1.0,
+                        y: 0.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 1.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 0.0,
+                        z: 1.0,
+                    },
+                ],
+            },
+            // NORTH
+            Tri {
+                p: [
+                    V3d {
+                        x: 1.0,
+                        y: 0.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 1.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 1.0,
+                        z: 1.0,
+                    },
+                ],
+            },
+            Tri {
+                p: [
+                    V3d {
+                        x: 1.0,
+                        y: 0.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 1.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 0.0,
+                        z: 1.0,
+                    },
+                ],
+            },
+            // WEST
+            Tri {
+                p: [
+                    V3d {
+                        x: 0.0,
+                        y: 0.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 1.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 1.0,
+                        z: 0.0,
+                    },
+                ],
+            },
+            Tri {
+                p: [
+                    V3d {
+                        x: 0.0,
+                        y: 0.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 1.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 0.0,
+                        z: 0.0,
+                    },
+                ],
+            },
+            // TOP
+            Tri {
+                p: [
+                    V3d {
+                        x: 0.0,
+                        y: 1.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 1.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 1.0,
+                        z: 1.0,
+                    },
+                ],
+            },
+            Tri {
+                p: [
+                    V3d {
+                        x: 0.0,
+                        y: 1.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 1.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 1.0,
+                        z: 0.0,
+                    },
+                ],
+            },
+            // BOTTOM
+            Tri {
+                p: [
+                    V3d {
+                        x: 1.0,
+                        y: 0.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 0.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 0.0,
+                        z: 0.0,
+                    },
+                ],
+            },
+            Tri {
+                p: [
+                    V3d {
+                        x: 1.0,
+                        y: 0.0,
+                        z: 1.0,
+                    },
+                    V3d {
+                        x: 0.0,
+                        y: 0.0,
+                        z: 0.0,
+                    },
+                    V3d {
+                        x: 1.0,
+                        y: 0.0,
+                        z: 0.0,
+                    },
+                ],
+            },
+        ];
+        self.mesh_cube = mesh_cube;
 
-  fn on_user_destroy(&mut self) -> Result<(), olc::Error> {
-    // Mirrors `olcPixelGameEngine::onUserDestroy`. Your code goes here.
-    Ok(())
-  }
+        Ok(())
+    }
+
+    fn on_user_update(&mut self, _elapsed_time: f32) -> Result<(), olc::Error> {
+        // Clears screen and sets black colour.
+        olc::clear(olc::BLACK);
+
+        for tri in self.mesh_cube.tris.iter() {
+
+        }
+        Ok(())
+    }
+
+    fn on_user_destroy(&mut self) -> Result<(), olc::Error> {
+        // Mirrors `olcPixelGameEngine::onUserDestroy`. Your code goes here.
+        Ok(())
+    }
 }
 
 fn main() {
-  let mut example = ExampleProgram {};
-  // Launches the program in 200x100 "pixels" screen, where each "pixel" is 4x4 pixel square,
-  // and starts the main game loop.
-  olc::start("Hello, World!", &mut example, 200, 100, 4, 4).unwrap();
+    let mut demo = OLCEngine3D {
+        mesh_cube: Mesh::<f32> { tris: Vec::new() },
+    };
+    olc::start("My Game", &mut demo, 256, 240, 4, 4).unwrap();
 }
-
